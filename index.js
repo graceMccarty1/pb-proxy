@@ -3,7 +3,12 @@ const cors = require("cors");
 const fetch = require("node-fetch");
 
 const app = express();
-app.use(cors());
+
+app.use(cors({
+  origin: "*",
+  methods: ["GET"],
+  allowedHeaders: ["Content-Type", "Authorization"]
+}));
 
 const PB_TOKEN = process.env.PB_TOKEN;
 const PB_BASE = "https://api.productboard.com";
@@ -24,4 +29,4 @@ app.get("/pb/*", async (req, res) => {
   }
 });
 
-app.listen(process.env.PORT || 3000);
+app.listen(process.env.PORT || 3000, () => console.log("Proxy running"));
